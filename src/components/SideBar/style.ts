@@ -38,7 +38,7 @@ export const NavImageWrapper = styled.div`
   height: 24px;
 `;
 export const NavText = styled.div<{ $active?: boolean }>`
-  font-family: "Paperlogy-8ExtraBold";
+  font-family: "Paperlogy-5Medium";
   font-size: 18px;
   font-weight: 500;
   color: ${({ $active }) => ($active ? "#5C5EF5" : "#454A52")};
@@ -51,7 +51,7 @@ export const LogoutBox = styled.div`
   gap: 16px;
 `;
 export const LogoutText = styled.span`
-  font-family: "Paperlogy-8ExtraBold";
+  font-family: "Paperlogy-5Medium";
   font-size: 18px;
   font-weight: 500;
   color: #454a52;
