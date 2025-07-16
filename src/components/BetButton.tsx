@@ -10,26 +10,26 @@ interface ButtonProps {
   $active: boolean;
 }
 
-const Buttons = styled.button<ButtonProps>`
+const Button = styled.button<ButtonProps>`
   background-color: transparent;
   color: ${({ $active }) => ($active ? "#5C5EF5" : "#70747A")};
-  padding: 12px 16px;
+  padding: 12px 36px;
   border: 1px solied ${({ $active }) => ($active ? "#5C5EF5" : "#454A52")};
-  border-radius: 12px;
+  border-radius: 100px;
   cursor: pointer;
-  font-family: "Paperlogy-5Medium";
-  font-size: 18px;
+  font-family: "Paperlogy-6SemiBold";
+  font-size: 24px;
 `;
 
-const Button = ({ text, isActive, onClick }: PostOptionProps) => {
+const BetButton = ({ text, isActive, onClick }: PostOptionProps) => {
   return (
-    <Buttons $active={isActive} onClick={onClick}>
+    <Button $active={isActive} onClick={onClick}>
       {text}
-    </Buttons>
+    </Button>
   );
 };
 
-export default Button;
+export default BetButton;
 
 // import { useState } from "react";
 // import PostOption from "./components/PostOption";
