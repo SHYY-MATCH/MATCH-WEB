@@ -1,6 +1,4 @@
-import React from "react";
-
-const file = () => {
+const File = () => {
   return (
     <svg
       width="24"
@@ -20,4 +18,4 @@ const file = () => {
   );
 };
 
-export default file;
+export default File;
