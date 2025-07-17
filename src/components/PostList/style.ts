@@ -1,58 +1,85 @@
 import styled from "styled-components";
 
-export const Container = styled.main`
-  display: flex;
-  align-items: center;
-  padding: 23px 40px;
+export const Container = styled.div`
   background-color: #2a303a;
   color: white;
-  width: fit-content;
-  border-radius: 8px;
+  padding: 20px 24px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
 `;
+
 export const Title = styled.div`
-  width: 464px;
   font-size: 20px;
   font-family: "Paperlogy-6SemiBold";
+  flex: 1;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
-export const ProfileContainer = styled.div`
-  width: 597px;
+
+export const AuthorContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  flex: 1;
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+    width: 100%;
+  }
 `;
-export const Profile = styled.div`
+
+export const Profile = styled.img`
   width: 32px;
   height: 32px;
   border-radius: 100%;
-  background-color: aliceblue;
+  object-fit: cover;
+  background-color: #d9d9d9;
 `;
+
 export const Name = styled.div`
-  font-size: 18px;
-  font-family: "Paperlogy-4Regular";
+  font-size: 16px;
   color: #9da0a4;
+  font-family: "Paperlogy-4Regular";
 `;
-export const LookContainer = styled.div`
-  width: 114px;
+
+export const MetaContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: 40px;
+  flex: 1;
+  justify-content: flex-end;
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+    width: 100%;
+  }
 `;
-export const LookCount = styled.div`
-  font-size: 16px;
-  font-family: "Paperlogy-4Regular";
-  color: #c9cacc;
-`;
-export const GoodContainer = styled.div`
-  width: 114px;
+
+export const IconGroup = styled.div`
   display: flex;
   align-items: center;
+  gap: 6px;
 `;
-export const GoodCount = styled.div`
-  font-size: 16px;
-  font-family: "Paperlogy-4Regular";
+
+export const Text = styled.div`
+  font-size: 14px;
   color: #c9cacc;
+  font-family: "Paperlogy-4Regular";
 `;
+
 export const Date = styled.div`
-  font-size: 16px;
-  font-family: "Paperlogy-4Regular";
+  font-size: 14px;
   color: #9da0a4;
+  font-family: "Paperlogy-4Regular";
 `;

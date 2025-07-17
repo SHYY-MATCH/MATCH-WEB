@@ -4,29 +4,39 @@ import Coin from "../../assets/Icons/Coin";
 import Trophy from "../../assets/Icons/Trophy";
 import User from "../../assets/Icons/User";
 
-interface BetRegularProps {
-  data: {
-    text1: string;
-    text2: string;
-    text3: number;
-    percent: number;
-  };
+interface TeamData {
+  text1: string;
+  text2: string;
+  text3: number;
+  percent: number;
 }
 
-const BetRegular = ({ data }: BetRegularProps) => {
-  const infoList = [
-    { id: 1, icon: Coin, text: data.text1 },
-    { id: 2, icon: Trophy, text: data.text2 },
-    { id: 3, icon: User, text: data.text3.toString(), percent: data.percent },
+interface BetRegularProps {
+  left: TeamData;
+  right: TeamData;
+  teams: [string, string];
+}
+
+const BetRegular = ({ left, right, teams }: BetRegularProps) => {
+  const leftList = [
+    { id: 1, icon: Coin, text: left.text1 },
+    { id: 2, icon: Trophy, text: left.text2 },
+    { id: 3, icon: User, text: left.text3.toString(), percent: left.percent },
+  ];
+
+  const rightList = [
+    { id: 1, icon: Coin, text: right.text1 },
+    { id: 2, icon: Trophy, text: right.text2 },
+    { id: 3, icon: User, text: right.text3.toString(), percent: right.percent },
   ];
 
   return (
     <S.Container>
-      {/* 소프트웨어 팀 */}
+      {/* 왼쪽 팀 */}
       <S.SoftTeamContainer>
-        <S.RedTitle>소프트웨어</S.RedTitle>
+        <S.RedTitle>{teams[0]}</S.RedTitle>
         <S.Main>
-          {infoList.map(({ id, icon: Icon, text, percent }) => (
+          {leftList.map(({ id, icon: Icon, text, percent }) => (
             <React.Fragment key={id}>
               <S.RedSubContainer>
                 <Icon />
@@ -47,11 +57,11 @@ const BetRegular = ({ data }: BetRegularProps) => {
 
       <S.Line />
 
-      {/* 임베디드 팀 */}
+      {/* 오른쪽 팀 */}
       <S.HardWareTeamContainer>
-        <S.BlueTitle>임베디드</S.BlueTitle>
+        <S.BlueTitle>{teams[1]}</S.BlueTitle>
         <S.Main>
-          {infoList.map(({ id, icon: Icon, text, percent }) => (
+          {rightList.map(({ id, icon: Icon, text, percent }) => (
             <React.Fragment key={id}>
               <S.BlueSubContainer>
                 <S.Text>{text}</S.Text>

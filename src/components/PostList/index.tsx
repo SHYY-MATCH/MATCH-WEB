@@ -1,25 +1,43 @@
-import React from "react";
 import * as S from "./style";
 import Show from "../../assets/Icons/Show";
 import Heart from "../../assets/Icons/Heart";
 
-const PostList = () => {
+interface Post {
+  id: number;
+  title: string;
+  name: string;
+  likes: number;
+  views: number;
+  createdAt: string;
+}
+
+interface PostListProps {
+  post: Post;
+}
+
+const PostList = ({ post }: PostListProps) => {
+  const formattedDate = new Date(post.createdAt).toLocaleDateString("ko-KR");
+
   return (
     <S.Container>
-      <S.Title>글 제목</S.Title>
-      <S.ProfileContainer>
-        <S.Profile />
-        <S.Name>글쓴이</S.Name>
-      </S.ProfileContainer>
-      <S.LookContainer>
-        <Show />
-        <S.LookCount>1.42k</S.LookCount>
-      </S.LookContainer>
-      <S.GoodContainer>
-        <Heart />
-        <S.GoodCount>1.42k</S.GoodCount>
-      </S.GoodContainer>
-      <S.Date>2025년 4월 3일</S.Date>
+      <S.Title>{post.title}</S.Title>
+
+      <S.AuthorContainer>
+        <S.Profile alt="프로필" />
+        <S.Name>{post.name}</S.Name>
+      </S.AuthorContainer>
+
+      <S.MetaContainer>
+        <S.IconGroup>
+          <Show />
+          <S.Text>{post.views}</S.Text>
+        </S.IconGroup>
+        <S.IconGroup>
+          <Heart />
+          <S.Text>{post.likes}</S.Text>
+        </S.IconGroup>
+        <S.Date>{formattedDate}</S.Date>
+      </S.MetaContainer>
     </S.Container>
   );
 };
