@@ -5,7 +5,6 @@ export const Container = styled.main`
   display: flex;
   min-height: 100vh;
   background-color: #1f2329;
-  position: relative;
 `;
 export const Content = styled.div`
   width: 100%;
@@ -32,6 +31,7 @@ export const BannerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 `;
 
 export const BannerContent = styled.div`
@@ -83,8 +83,8 @@ export const Team = styled.span<{ $isRight?: boolean }>`
 
 export const WhaleImage = styled.img`
   height: 300px;
-  top: 30px;
-  right: 130px;
+  top: -50px;
+  right: 0;
   position: absolute;
 `;
 export const Main = styled.div`
