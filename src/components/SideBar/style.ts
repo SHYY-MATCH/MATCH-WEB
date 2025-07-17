@@ -5,8 +5,8 @@ export const Container = styled.main`
   display: flex;
   flex-direction: column;
   background-color: black;
-  width: 15%;
-  height: 100vh;
+  width: 12%;
+  min-height: 100vh;
   padding: 46px 14px 0px 14px;
 `;
 export const LogoCotainer = styled.div`
