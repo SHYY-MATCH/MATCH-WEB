@@ -5,6 +5,7 @@ export const Container = styled.main`
   display: flex;
   min-height: 100vh;
   background-color: #1f2329;
+  position: relative;
 `;
 export const Content = styled.div`
   width: 100%;
@@ -92,4 +93,17 @@ export const Main = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+`;
+export const Write = styled.div`
+  position: fixed;
+  bottom: 100px;
+  right: 100px;
+  width: 100px;
+  height: 100px;
+  background-color: #5c5ef5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  cursor: pointer;
 `;

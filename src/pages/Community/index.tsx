@@ -5,6 +5,7 @@ import PostList from "../../components/PostList";
 import { useState } from "react";
 import BetRegular from "../../components/BetRegular";
 import Whale from "../../assets/whale.png";
+import Write from "../../assets/Icons/Write";
 
 interface Post {
   id: number;
@@ -133,6 +134,9 @@ const Community = () => {
           </S.MainContent>
         </S.ContentContent>
       </S.Content>
+      <S.Write>
+        <Write />
+      </S.Write>
     </S.Container>
   );
 };
