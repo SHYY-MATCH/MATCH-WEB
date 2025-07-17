@@ -4,11 +4,20 @@ import Coin from "../../assets/Icons/Coin";
 import Trophy from "../../assets/Icons/Trophy";
 import User from "../../assets/Icons/User";
 
-const BetRegular = () => {
+interface BetRegularProps {
+  data: {
+    text1: string;
+    text2: string;
+    text3: number;
+    percent: number;
+  };
+}
+
+const BetRegular = ({ data }: BetRegularProps) => {
   const infoList = [
-    { id: 1, icon: Coin, text: "382.7만" },
-    { id: 2, icon: Trophy, text: "1:1.2" },
-    { id: 3, icon: User, text: "62", percent: 67 },
+    { id: 1, icon: Coin, text: data.text1 },
+    { id: 2, icon: Trophy, text: data.text2 },
+    { id: 3, icon: User, text: data.text3.toString(), percent: data.percent },
   ];
 
   return (
@@ -23,7 +32,7 @@ const BetRegular = () => {
                 <Icon />
                 <S.Text>{text}</S.Text>
               </S.RedSubContainer>
-              {percent !== undefined && (
+              {percent !== undefined && id === 3 && (
                 <S.RedPercentContainer>
                   <S.RedPercentText>{percent}%</S.RedPercentText>
                   <S.PercentBarWrapper>
@@ -48,7 +57,7 @@ const BetRegular = () => {
                 <S.Text>{text}</S.Text>
                 <Icon isPink />
               </S.BlueSubContainer>
-              {percent !== undefined && (
+              {percent !== undefined && id === 3 && (
                 <S.BluePercentContainer>
                   <S.BluePercentText>{percent}%</S.BluePercentText>
                   <S.PercentBarWrapper>

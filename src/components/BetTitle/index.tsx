@@ -8,7 +8,7 @@ interface BetTitleProps {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 356px;
+  width: 100%;
   padding: 12px 0;
   align-items: center;
   border-radius: 8px;
