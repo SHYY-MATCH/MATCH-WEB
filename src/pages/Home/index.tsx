@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as S from "./style";
 import SideBar from "../../components/SideBar";
 import BetRegular from "../../components/BetRegular";
@@ -16,45 +16,73 @@ const Home = () => {
       id: 1,
       title: "큰 공 배구 왕중왕전",
       subTitle: "38분 후에 제출이 마감됩니다.",
-      data: {
+      left: {
         text1: "382.7만",
         text2: "1:1.2",
         text3: 62,
         percent: 67,
       },
+      right: {
+        text1: "382.7만",
+        text2: "1:1.6",
+        text3: 31,
+        percent: 33,
+      },
+      teams: ["소프트웨어개발과", "임베디드소프트웨어과"] as [string, string],
     },
     {
       id: 2,
       title: "큰 공 배구 왕중왕전",
       subTitle: "38분 후에 제출이 마감됩니다.",
-      data: {
+      left: {
         text1: "382.7만",
         text2: "1:1.2",
         text3: 62,
         percent: 67,
       },
+      right: {
+        text1: "382.7만",
+        text2: "1:1.6",
+        text3: 31,
+        percent: 33,
+      },
+      teams: ["소프트웨어개발과", "임베디드소프트웨어과"] as [string, string],
     },
     {
       id: 3,
       title: "큰 공 배구 왕중왕전",
       subTitle: "38분 후에 제출이 마감됩니다.",
-      data: {
+      left: {
         text1: "382.7만",
         text2: "1:1.2",
         text3: 62,
         percent: 67,
       },
+      right: {
+        text1: "382.7만",
+        text2: "1:1.6",
+        text3: 31,
+        percent: 33,
+      },
+      teams: ["소프트웨어개발과", "임베디드소프트웨어과"] as [string, string],
     },
     {
       id: 4,
       title: "큰 공 배구 왕중왕전",
       subTitle: "38분 후에 제출이 마감됩니다.",
-      data: {
+      left: {
         text1: "382.7만",
         text2: "1:1.2",
         text3: 62,
         percent: 67,
       },
+      right: {
+        text1: "382.7만",
+        text2: "1:1.6",
+        text3: 31,
+        percent: 33,
+      },
+      teams: ["소프트웨어개발과", "임베디드소프트웨어과"] as [string, string],
     },
   ];
   const [bannerIndex, setBannerIndex] = useState(0); // 0: 첫 배너, 1: 두 번째 배너
@@ -131,10 +159,10 @@ const Home = () => {
         <S.NowHotBetContainer>
           <S.NowHotBetText>현재 인기 배팅 🔥</S.NowHotBetText>
           <S.NowHotBetList>
-            {hotBetList.map(({ id, title, subTitle, data }) => (
-              <S.HotBet>
+            {hotBetList.map(({ id, title, subTitle, left, right, teams }) => (
+              <S.HotBet key={id}>
                 <BetTitle title={title} subTitle={subTitle} />
-                <BetRegular key={id} data={data} />
+                <BetRegular left={left} right={right} teams={teams} />
               </S.HotBet>
             ))}
           </S.NowHotBetList>

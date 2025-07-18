@@ -14,7 +14,7 @@ const SideBar = () => {
 
   const navDetails = [
     { id: 1, name: "로그인", img: Login, link: "/login" },
-    { id: 2, name: "홈", img: Home, link: "/home" },
+    { id: 2, name: "홈", img: Home, link: "/" },
     { id: 3, name: "배팅 목록", img: Bet, link: "/betting-list" },
     { id: 4, name: "랭킹", img: Rank, link: "/ranking" },
     { id: 5, name: "게시판", img: Community, link: "/community" },

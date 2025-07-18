@@ -32,7 +32,6 @@ const BetRegular = ({ left, right, teams }: BetRegularProps) => {
 
   return (
     <S.Container>
-      {/* 왼쪽 팀 */}
       <S.SoftTeamContainer>
         <S.RedTitle>{teams[0]}</S.RedTitle>
         <S.Main>
