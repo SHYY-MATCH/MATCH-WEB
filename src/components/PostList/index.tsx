@@ -23,7 +23,6 @@ const PostList = ({ post }: PostListProps) => {
       <S.Title>{post.title}</S.Title>
 
       <S.AuthorContainer>
-        <S.Profile alt="프로필" />
         <S.Name>{post.name}</S.Name>
       </S.AuthorContainer>
 

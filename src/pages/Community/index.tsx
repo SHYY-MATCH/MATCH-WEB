@@ -6,6 +6,7 @@ import { useState } from "react";
 import BetRegular from "../../components/BetRegular";
 import Whale from "../../assets/whale.png";
 import Write from "../../assets/Icons/Write";
+import { useNavigate } from "react-router-dom";
 
 interface Post {
   id: number;
@@ -19,6 +20,7 @@ interface Post {
 const Community = () => {
   const [filter, setFilter] = useState<"time" | "likes" | "views">("time");
 
+  const navigate = useNavigate();
   const posts: Post[] = [
     {
       id: 1,
@@ -134,7 +136,7 @@ const Community = () => {
           </S.MainContent>
         </S.ContentContent>
       </S.Content>
-      <S.Write>
+      <S.Write onClick={() => navigate("/post")}>
         <Write />
       </S.Write>
     </S.Container>

@@ -5,8 +5,10 @@ import LeftArrow from "../../assets/Icons/LeftArrow";
 import AddFile from "../../assets/Icons/AddFile";
 import Button from "../../components/Button";
 import File from "../../assets/Icons/File";
+import { useNavigate } from "react-router-dom";
 
 const Post = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [fileName, setFileName] = useState<string | null>(null);
@@ -30,7 +32,7 @@ const Post = () => {
     <S.Container>
       <SideBar />
       <S.Main>
-        <S.BackContainer>
+        <S.BackContainer onClick={() => navigate("/community")}>
           <LeftArrow />
           <S.BackText>돌아가기</S.BackText>
         </S.BackContainer>

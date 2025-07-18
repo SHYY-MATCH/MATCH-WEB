@@ -39,14 +39,6 @@ export const AuthorContainer = styled.div`
   }
 `;
 
-export const Profile = styled.img`
-  width: 32px;
-  height: 32px;
-  border-radius: 100%;
-  object-fit: cover;
-  background-color: #d9d9d9;
-`;
-
 export const Name = styled.div`
   font-size: 16px;
   color: #9da0a4;
