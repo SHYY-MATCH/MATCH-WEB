@@ -39,13 +39,12 @@ const RankProfile = ({
     <S.Container>
       <S.Rank>{rank}</S.Rank>
       <S.ProfileContainer>
-        <S.Profile />
-        <S.Name>{name}</S.Name>
+        <div>{name}</div>
       </S.ProfileContainer>
-      <S.Money>{formattedMoney}</S.Money>
-      <S.SuccessBet>{successBet}</S.SuccessBet>
-      <S.FailBet>{failBet}</S.FailBet>
-      <S.MaxBet>{maxBet}</S.MaxBet>
+      <div>{formattedMoney}</div>
+      <div>{successBet}</div>
+      <div>{failBet}</div>
+      <div>{maxBet}</div>
       <S.CurentBetsContainer>
         {currentBets.map((bet, index) => renderBetIcon(bet.type, index))}
       </S.CurentBetsContainer>

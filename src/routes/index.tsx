@@ -4,6 +4,7 @@ import Community from "../pages/Community";
 import Post from "../pages/Post";
 import PostDetail from "../pages/PostDetail";
 import KakaoRedirect from "../pages/KakaoRedirect";
+import Ranking from "../pages/Ranking";
 
 function Router() {
   return useRoutes([
@@ -36,7 +37,7 @@ function Router() {
     },
     {
       path: "/ranking",
-      // element: <Ranking />,
+      element: <Ranking />,
     },
   ]);
 }
