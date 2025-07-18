@@ -1,10 +1,7 @@
-import SideBar from "./components/SideBar/index";
+import Router from "./routes";
+
 function App() {
-  return (
-    <div>
-      <SideBar />
-    </div>
-  );
+  return <Router />;
 }
 
 export default App;

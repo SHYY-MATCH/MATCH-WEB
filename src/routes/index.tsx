@@ -1,76 +1,41 @@
-import StartLogin from "../pages/StartLogin";
-import InputUserDetail from "../pages/InputUserDetail";
-import Home from "../pages/Home";
-import InputOtherDetail from "../pages/InputOtherDetail";
-import UploadFile from "../pages/UploadFile";
-import GatherResult from "../pages/GatherResult";
-import Mbti from "../pages/Mbti";
-import MbtiResult from "../pages/MbtiResult";
-import UserProfileEdit from "../pages/UserProfileEdit";
 import { useRoutes } from "react-router-dom";
-import KakaoRedirect from "@/pages/auth/KakaoRedirect";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import Withdrawal from "@/pages/Withdrawal";
-import AnalysisResult from "@/pages/AnalysisResult";
+import Home from "../pages/Home";
+import Community from "../pages/Community";
+import Post from "../pages/Post";
+import PostDetail from "../pages/PostDetail";
 
 function Router() {
   return useRoutes([
+    // { path: "/oauth/code", element: <KakaoRedirect /> },
     {
       path: "/",
-      children: [{ index: true, element: <StartLogin /> }],
-    },
-    { path: "/oauth/code", element: <KakaoRedirect /> },
-    {
-      path: "/input-user-detail",
-      element: <InputUserDetail />,
-    },
-    {
-      path: "/home",
       element: <Home />,
     },
+    // community탭
     {
-      path: "/input-other-detail",
-      element: <InputOtherDetail />,
+      path: "/community",
+      element: <Community />,
     },
     {
-      path: "/upload-file",
-      element: <UploadFile />,
+      path: "/post",
+      element: <Post />,
     },
     {
-      path: "/result",
-      element: <AnalysisResult />,
+      path: "/post-detail",
+      element: <PostDetail />,
+    },
+    //bet-list 탭
+    {
+      path: "/bet-list",
+      // element: <BetList />,
     },
     {
-      path: "/gather-result",
-      element: (
-        <ProtectedRoute>
-          <GatherResult />
-        </ProtectedRoute>
-      ),
+      path: "/bet-detail",
+      // element: <BetList />,
     },
     {
-      path: "/mbti-match",
-      element: <Mbti />,
-    },
-    {
-      path: "/mbti-result",
-      element: <MbtiResult />,
-    },
-    {
-      path: "/profile-edit",
-      element: (
-        <ProtectedRoute>
-          <UserProfileEdit />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/withdrawal",
-      element: (
-        <ProtectedRoute>
-          <Withdrawal />
-        </ProtectedRoute>
-      ),
+      path: "/ranking",
+      // element: <Ranking />,
     },
   ]);
 }

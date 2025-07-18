@@ -4,7 +4,7 @@ import SideBar from "../../components/SideBar";
 import LeftArrow from "../../assets/Icons/LeftArrow";
 import AddFile from "../../assets/Icons/AddFile";
 import Button from "../../components/Button";
-import File from "../../assets/Icons/file";
+import File from "../../assets/Icons/File";
 
 const Post = () => {
   const [title, setTitle] = useState("");
