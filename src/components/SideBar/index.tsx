@@ -11,9 +11,16 @@ import { useLocation } from "react-router-dom";
 
 const SideBar = () => {
   const location = useLocation();
+  const KAKAO_AUTH_URL = import.meta.env.VITE_KAKAO_AUTH_URL;
+  const userName = localStorage.getItem("userName");
 
   const navDetails = [
-    { id: 1, name: "로그인", img: Login, link: "/login" },
+    {
+      id: 1,
+      name: userName ? `${userName}님` : "로그인",
+      img: Login,
+      link: KAKAO_AUTH_URL,
+    },
     { id: 2, name: "홈", img: Home, link: "/" },
     { id: 3, name: "배팅 목록", img: Bet, link: "/betting-list" },
     { id: 4, name: "랭킹", img: Rank, link: "/ranking" },
@@ -36,7 +43,12 @@ const SideBar = () => {
               <S.NavImageWrapper>
                 <Icon />
               </S.NavImageWrapper>
-              <S.NavText $active={isActive}>{nav.name}</S.NavText>
+              <S.NavText
+                $active={isActive}
+                $isUser={nav.id === 1 && userName !== null} // ✅ 첫 항목이 로그인 버튼일 때만 적용
+              >
+                {nav.name}
+              </S.NavText>
             </S.NavItem>
           );
         })}

@@ -3,10 +3,11 @@ import Home from "../pages/Home";
 import Community from "../pages/Community";
 import Post from "../pages/Post";
 import PostDetail from "../pages/PostDetail";
+import KakaoRedirect from "../pages/KakaoRedirect";
 
 function Router() {
   return useRoutes([
-    // { path: "/oauth/code", element: <KakaoRedirect /> },
+    { path: "/oauth/code", element: <KakaoRedirect /> },
     {
       path: "/",
       element: <Home />,

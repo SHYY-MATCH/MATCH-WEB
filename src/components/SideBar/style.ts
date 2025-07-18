@@ -37,11 +37,12 @@ export const NavImageWrapper = styled.div`
   width: 24px;
   height: 24px;
 `;
-export const NavText = styled.div<{ $active?: boolean }>`
+export const NavText = styled.div<{ $active?: boolean; $isUser?: boolean }>`
   font-family: "Paperlogy-5Medium";
   font-size: 18px;
   font-weight: 500;
-  color: ${({ $active }) => ($active ? "#5C5EF5" : "#454A52")};
+  color: ${({ $active, $isUser }) =>
+    $isUser ? "white" : $active ? "#5C5EF5" : "#454A52"};
   transition: color 0.2s;
 `;
 export const LogoutBox = styled.div`
