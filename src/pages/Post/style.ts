@@ -84,6 +84,7 @@ export const MainWrite = styled.textarea`
   border: none;
   font-size: 18px;
   font-family: "Paperlogy-4Regular";
+  resize: none;
   color: white;
   &:focus {
     outline: none;
