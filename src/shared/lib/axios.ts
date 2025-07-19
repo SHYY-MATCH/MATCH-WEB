@@ -77,7 +77,18 @@ api.interceptors.response.use(
           },
         });
 
-        const newAccessToken = res.data.accessToken;
+        // 서버 응답 구조 확인
+        const newAccessToken =
+          res.data?.accessToken || res.data?.tokenResponse?.accessToken;
+
+        if (!newAccessToken) {
+          console.error(
+            "토큰 갱신 실패: 새로운 액세스 토큰이 없습니다.",
+            res.data
+          );
+          throw new Error("토큰 갱신 실패");
+        }
+
         localStorage.setItem("accessToken", newAccessToken);
         api.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
         processQueue(null, newAccessToken);
@@ -88,6 +99,7 @@ api.interceptors.response.use(
         };
         return api(originalRequest);
       } catch (refreshError) {
+        console.error("토큰 갱신 에러:", refreshError);
         processQueue(refreshError, null);
         localStorage.clear();
         window.location.href = "/";
@@ -98,5 +110,5 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  },
+  }
 );
