@@ -5,6 +5,7 @@ import Home from "../../assets/sidebar/Home";
 import Login from "../../assets/sidebar/Login";
 import Logout from "../../assets/sidebar/Logout";
 import Rank from "../../assets/sidebar/Rank";
+import { useLogout } from "../../shared/hooks/useLogout";
 import * as S from "./style";
 
 import { useLocation } from "react-router-dom";
@@ -13,6 +14,15 @@ const SideBar = () => {
   const location = useLocation();
   const KAKAO_AUTH_URL = import.meta.env.VITE_KAKAO_AUTH_URL;
   const userName = localStorage.getItem("userName");
+  const logoutMutation = useLogout();
+
+  const handleLogoClick = () => {
+    window.location.reload();
+  };
+
+  const handleLogoutClick = () => {
+    logoutMutation.mutate();
+  };
 
   const navDetails = [
     {
@@ -29,7 +39,7 @@ const SideBar = () => {
 
   return (
     <S.Container>
-      <S.LogoCotainer>
+      <S.LogoCotainer onClick={handleLogoClick}>
         <Logo />
       </S.LogoCotainer>
 
@@ -54,7 +64,7 @@ const SideBar = () => {
         })}
       </S.MainNavBar>
 
-      <S.LogoutBox>
+      <S.LogoutBox onClick={handleLogoutClick}>
         <Logout fillColor="#454A52" />
         <S.LogoutText>로그아웃</S.LogoutText>
       </S.LogoutBox>

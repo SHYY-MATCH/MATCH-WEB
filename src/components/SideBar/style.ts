@@ -13,6 +13,17 @@ export const LogoCotainer = styled.div`
   display: flex;
   justify-content: center;
   padding-bottom: 64px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  svg {
+    width: 120px;
+    height: 24px;
+  }
 `;
 export const MainNavBar = styled.div`
   width: 100%;
@@ -46,10 +57,17 @@ export const NavText = styled.div<{ $active?: boolean; $isUser?: boolean }>`
   transition: color 0.2s;
 `;
 export const LogoutBox = styled.div`
-  padding-top: 300px;
+  margin-top: 200px;
+  padding: 12px;
   display: flex;
   align-items: center;
   gap: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 export const LogoutText = styled.span`
   font-family: "Paperlogy-5Medium";
