@@ -126,15 +126,24 @@ export const BetList = styled.div`
     overflow-y: auto;
     display: flex;
     gap: 16px;
-`;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+ 
+    &::-webkit-scrollbar {
+        display: none;
+    }
+`
 
 export const Bet = styled.section`
     display: flex;
     flex-direction: column;
     gap: 8px;
     
-    width: calc((50% - 8px) / 2);
+    //width: calc((50% - 8px) / 2);
+    width: calc((25% - 4px) - 8px);
     height: fit-content;
+    flex-shrink: 0
     
     //background: aqua;
 `
@@ -154,4 +163,20 @@ export const ScrollHandlers = styled.section`
 
 export const ScrollHandler = styled.section`
     width: 24px;
+`
+
+export const BetListScrollable = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 10px; // 스크롤바 공간 확보
+    scrollbar-width: thin; // Firefox
+    &::-webkit-scrollbar {
+        height: 8px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #c0c0c0;
+        border-radius: 4px;
+    }
 `
