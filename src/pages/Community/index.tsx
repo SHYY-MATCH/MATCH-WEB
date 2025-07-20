@@ -39,6 +39,8 @@ const Community = () => {
     },
   };
 
+  const safePosts = Array.isArray(posts) ? posts : [];
+
   return (
     <S.Container>
       <SideBar />
@@ -90,11 +92,39 @@ const Community = () => {
             </header>
 
             <S.Main>
-              {isLoading && <div>게시글을 불러오는 중입니다...</div>}
-              {isError && <div>게시글을 불러오지 못했습니다.</div>}
+              {isLoading && (
+                <div
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    padding: "20px",
+                  }}
+                >
+                  게시글을 불러오는 중입니다...
+                </div>
+              )}
+              {isError && (
+                <div
+                  style={{ color: "red", textAlign: "center", padding: "20px" }}
+                >
+                  게시글을 불러오지 못했습니다. 다시 시도해주세요.
+                </div>
+              )}
+              {!isLoading && !isError && safePosts.length === 0 && (
+                <div
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    padding: "20px",
+                  }}
+                >
+                  게시글이 없습니다.
+                </div>
+              )}
               {!isLoading &&
                 !isError &&
-                posts.map((post) => (
+                safePosts.length > 0 &&
+                safePosts.map((post) => (
                   <PostList
                     key={post.id}
                     post={{

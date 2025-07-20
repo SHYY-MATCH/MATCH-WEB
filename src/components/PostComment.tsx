@@ -1,5 +1,19 @@
 import styled from "styled-components";
 
+interface Comment {
+  id: number;
+  content: string;
+  createdAt: string;
+  writer: {
+    id: number;
+    username: string;
+  };
+}
+
+interface PostCommentProps {
+  comment: Comment;
+}
+
 const Container = styled.main`
   display: flex;
   flex-direction: column;
@@ -17,7 +31,7 @@ const Name = styled.div`
   font-family: "Paperlogy-4Regular";
   color: #70747a;
 `;
-const Date = styled.div`
+const DateText = styled.div`
   font-size: 12px;
   font-family: "Paperlogy-5Medium";
   color: #454a52;
@@ -29,14 +43,18 @@ const CommentText = styled.div`
   color: #c9cacc;
 `;
 
-const PostComment = () => {
+const PostComment = ({ comment }: PostCommentProps) => {
+  const formattedDate = new window.Date(comment.createdAt).toLocaleDateString(
+    "ko-KR"
+  );
+
   return (
     <Container>
       <Header>
-        <Name>@작성자</Name>
-        <Date>2024.11.18</Date>
+        <Name>@{comment.writer.username}</Name>
+        <DateText>{formattedDate}</DateText>
       </Header>
-      <CommentText>댓글입니다</CommentText>
+      <CommentText>{comment.content}</CommentText>
     </Container>
   );
 };

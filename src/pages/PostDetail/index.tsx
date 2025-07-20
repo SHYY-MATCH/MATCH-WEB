@@ -11,6 +11,8 @@ import {
   useLikePost,
   useUnlikePost,
   useIncreaseViewPost,
+  useGetComments,
+  useCreateComment,
 } from "../../shared/hooks/useGetPost";
 
 const PostDetail = () => {
@@ -20,9 +22,13 @@ const PostDetail = () => {
   const isActive = comment.trim() !== "";
 
   const { data: post, isLoading, isError } = useGetPost(Number(postId));
+  const { data: comments = [], isLoading: commentsLoading } = useGetComments(
+    Number(postId)
+  );
   const likeMutation = useLikePost(Number(postId));
   const unlikeMutation = useUnlikePost(Number(postId));
   const increaseViewMutation = useIncreaseViewPost(Number(postId));
+  const createCommentMutation = useCreateComment(Number(postId));
   const hasIncreasedView = useRef(false);
 
   // 좋아요 상태/수 optimistic update
@@ -65,6 +71,22 @@ const PostDetail = () => {
       setOptimisticIsLiked(true);
       likeMutation.mutate();
     }
+  };
+
+  const handleCommentSubmit = () => {
+    if (!isActive || !comment.trim()) return;
+
+    createCommentMutation.mutate(
+      { content: comment },
+      {
+        onSuccess: () => {
+          setComment("");
+        },
+        onError: () => {
+          alert("댓글 작성에 실패했습니다.");
+        },
+      }
+    );
   };
 
   return (
@@ -125,16 +147,26 @@ const PostDetail = () => {
               onChange={(e) => setComment(e.target.value)}
             />
           </S.WriteComentInput>
-          <S.WriteComentPostBtn $active={isActive}>
-            작성 완료
+          <S.WriteComentPostBtn
+            $active={isActive}
+            onClick={handleCommentSubmit}
+            disabled={!isActive || createCommentMutation.isPending}
+          >
+            {createCommentMutation.isPending ? "작성 중..." : "작성 완료"}
           </S.WriteComentPostBtn>
         </S.WriteComent>
         <S.AllComentContainer>
           <S.WriteComentTitle>전체 댓글</S.WriteComentTitle>
           <S.Coments>
-            {post.comments.map((c) => (
-              <PostComment key={c.id} comment={c} />
-            ))}
+            {commentsLoading ? (
+              <div>댓글을 불러오는 중...</div>
+            ) : comments.length === 0 ? (
+              <div>댓글이 없습니다.</div>
+            ) : (
+              comments.map((comment) => (
+                <PostComment key={comment.id} comment={comment} />
+              ))
+            )}
           </S.Coments>
         </S.AllComentContainer>
       </S.Main>

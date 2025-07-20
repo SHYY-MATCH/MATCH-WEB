@@ -8,6 +8,7 @@ export const Container = styled.main`
   width: 12%;
   min-height: 100vh;
   padding: 46px 14px 0px 14px;
+  flex-shrink: 0;
 `;
 export const LogoCotainer = styled.div`
   display: flex;
