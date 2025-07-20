@@ -34,7 +34,7 @@ function Router() {
       element: <BettingList />,
     },
     {
-      path: "/bet-detail",
+      path: "/betting-detail/:bettingId",
       element: <BettingDetail />,
     },
     {
