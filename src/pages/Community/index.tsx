@@ -7,46 +7,19 @@ import BetRegular from "../../components/BetRegular";
 import Whale from "../../assets/whale.png";
 import Write from "../../assets/Icons/Write";
 import { useNavigate } from "react-router-dom";
-
-interface Post {
-  id: number;
-  title: string;
-  name: string;
-  likes: number;
-  views: number;
-  createdAt: string;
-}
+import { useGetPosts } from "../../shared/hooks/useGetPost";
 
 const Community = () => {
   const [filter, setFilter] = useState<"time" | "likes" | "views">("time");
-
   const navigate = useNavigate();
-  const posts: Post[] = [
-    {
-      id: 1,
-      title: "첫 번째 글",
-      name: "작성자1",
-      likes: 10,
-      views: 200,
-      createdAt: "2025-07-17T10:00:00Z",
-    },
-    {
-      id: 2,
-      title: "두 번째 글",
-      name: "작성자1",
-      likes: 30,
-      views: 150,
-      createdAt: "2025-07-17T12:00:00Z",
-    },
-    {
-      id: 3,
-      title: "세 번째 글",
-      name: "작성자1",
-      likes: 5,
-      views: 300,
-      createdAt: "2025-07-16T09:00:00Z",
-    },
-  ];
+
+  const sortMap = {
+    time: "latest",
+    likes: "likes",
+    views: "views",
+  } as const;
+
+  const { data: posts = [], isLoading, isError } = useGetPosts(sortMap[filter]);
 
   const gameInfo = {
     title: "농구",
@@ -65,20 +38,6 @@ const Community = () => {
       percent: 24,
     },
   };
-
-  const sortedPosts = [...posts].sort((a, b) => {
-    switch (filter) {
-      case "likes":
-        return b.likes - a.likes;
-      case "views":
-        return b.views - a.views;
-      case "time":
-      default:
-        return (
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
-    }
-  });
 
   return (
     <S.Container>
@@ -110,6 +69,7 @@ const Community = () => {
 
             <S.WhaleImage src={Whale} alt="whale" />
           </S.BannerWrapper>
+
           <S.MainContent>
             <header>
               <PostOption
@@ -128,14 +88,30 @@ const Community = () => {
                 onClick={() => setFilter("views")}
               />
             </header>
+
             <S.Main>
-              {sortedPosts.map((post) => (
-                <PostList key={post.id} post={post} />
-              ))}
+              {isLoading && <div>게시글을 불러오는 중입니다...</div>}
+              {isError && <div>게시글을 불러오지 못했습니다.</div>}
+              {!isLoading &&
+                !isError &&
+                posts.map((post) => (
+                  <PostList
+                    key={post.id}
+                    post={{
+                      id: post.id,
+                      title: post.title,
+                      name: post.writer.username,
+                      likes: post.likes,
+                      views: post.views,
+                      createdAt: post.createdAt,
+                    }}
+                  />
+                ))}
             </S.Main>
           </S.MainContent>
         </S.ContentContent>
       </S.Content>
+
       <S.Write onClick={() => navigate("/post")}>
         <Write />
       </S.Write>
