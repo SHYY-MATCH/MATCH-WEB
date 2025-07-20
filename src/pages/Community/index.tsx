@@ -8,6 +8,7 @@ import Whale from "../../assets/whale.png";
 import Write from "../../assets/Icons/Write";
 import { useNavigate } from "react-router-dom";
 import { useGetPosts } from "../../shared/hooks/useGetPost";
+import { useBettingList } from "../../shared/hooks/useBettingList";
 
 const Community = () => {
   const [filter, setFilter] = useState<"time" | "likes" | "views">("time");
@@ -20,24 +21,10 @@ const Community = () => {
   } as const;
 
   const { data: posts = [], isLoading, isError } = useGetPosts(sortMap[filter]);
+  const { data: bettings = [] } = useBettingList();
 
-  const gameInfo = {
-    title: "농구",
-    time: "오전 09:40",
-    teams: ["SW 개발과", "임베디드개발과"] as [string, string],
-    left: {
-      text1: "382.7만",
-      text2: "1:1.2",
-      text3: 62,
-      percent: 76,
-    },
-    right: {
-      text1: "382.7만",
-      text2: "3.4:1",
-      text3: 23,
-      percent: 24,
-    },
-  };
+  // 첫 번째 배팅을 배너에 표시
+  const bannerBetting = bettings.length > 0 ? bettings[0] : null;
 
   const safePosts = Array.isArray(posts) ? posts : [];
 
@@ -50,22 +37,75 @@ const Community = () => {
             <S.BannerContent>
               <S.BannerHeaderContainer>
                 <S.BannerHeader>
-                  <S.SportType>{gameInfo.title}</S.SportType>
-                  <S.Time>{gameInfo.time}</S.Time>
+                  <S.SportType>
+                    {bannerBetting?.sportName || "배팅"}
+                  </S.SportType>
+                  <S.Time>
+                    {bannerBetting
+                      ? new Date(bannerBetting.openedAt).toLocaleTimeString(
+                          "ko-KR",
+                          {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          }
+                        )
+                      : "로딩 중..."}
+                  </S.Time>
                 </S.BannerHeader>
                 <S.Matchup>
-                  <S.Team>{gameInfo.teams[0]}</S.Team>
+                  <S.Team>{bannerBetting?.teams[0].teamName || "팀A"}</S.Team>
                   <span>vs</span>
-                  <S.Team $isRight>{gameInfo.teams[1]}</S.Team>
+                  <S.Team $isRight>
+                    {bannerBetting?.teams[1].teamName || "팀B"}
+                  </S.Team>
                 </S.Matchup>
               </S.BannerHeaderContainer>
 
               <S.BetRegular>
-                <BetRegular
-                  teams={gameInfo.teams}
-                  left={gameInfo.left}
-                  right={gameInfo.right}
-                />
+                {bannerBetting ? (
+                  <BetRegular
+                    teams={[
+                      bannerBetting.teams[0].teamName,
+                      bannerBetting.teams[1].teamName,
+                    ]}
+                    left={{
+                      text1: `${(
+                        bannerBetting.teams[0].totalAmount / 10000
+                      ).toFixed(1)}만`,
+                      text2: `1:${bannerBetting.teams[0].odds.toFixed(1)}`,
+                      text3: bannerBetting.teams[0].participantCount,
+                      percent: Math.round(
+                        (bannerBetting.teams[0].totalAmount /
+                          (bannerBetting.teams[0].totalAmount +
+                            bannerBetting.teams[1].totalAmount)) *
+                          100
+                      ),
+                    }}
+                    right={{
+                      text1: `${(
+                        bannerBetting.teams[1].totalAmount / 10000
+                      ).toFixed(1)}만`,
+                      text2: `1:${bannerBetting.teams[1].odds.toFixed(1)}`,
+                      text3: bannerBetting.teams[1].participantCount,
+                      percent: Math.round(
+                        (bannerBetting.teams[1].totalAmount /
+                          (bannerBetting.teams[0].totalAmount +
+                            bannerBetting.teams[1].totalAmount)) *
+                          100
+                      ),
+                    }}
+                  />
+                ) : (
+                  <div
+                    style={{
+                      color: "white",
+                      textAlign: "center",
+                      padding: "20px",
+                    }}
+                  >
+                    배팅 정보를 불러오는 중...
+                  </div>
+                )}
               </S.BetRegular>
             </S.BannerContent>
 

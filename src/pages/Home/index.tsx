@@ -9,8 +9,11 @@ import bank from "../../assets/bank.png";
 import RightArrow from "../../assets/Icons/RightArrow";
 import LeftArrow from "../../assets/Icons/LeftArrow";
 import whale from "../../assets/whale.png";
+import { useUserStatus } from "../../shared/hooks/useUserStatus";
 
 const Home = () => {
+  const { data: userStatus, isLoading: userStatusLoading } = useUserStatus();
+
   const hotBetList = [
     {
       id: 1,
@@ -101,6 +104,33 @@ const Home = () => {
       <S.Main>
         <S.BannerContainer>
           {bannerIndex === 0 ? (
+            <S.Banner $gradient="blue">
+              <S.BannerTextGroup>
+                <S.BannerWhaleContainer>
+                  <S.BannerTitle>
+                    {userStatusLoading
+                      ? "로딩 중..."
+                      : `${userStatus?.welcomeMessage}님 환영합니다!`}
+                  </S.BannerTitle>
+                  <S.BannerDivider />
+                  <S.BannerSubText>
+                    현재 내 자산 :{" "}
+                    {userStatusLoading
+                      ? "로딩 중..."
+                      : userStatus?.currentAsset?.toLocaleString() || "0"}{" "}
+                    코인
+                  </S.BannerSubText>
+                  <S.BannerSubText>
+                    현재 내 랭킹 :{" "}
+                    {userStatusLoading
+                      ? "로딩 중..."
+                      : userStatus?.currentRanking || "N/A"}
+                  </S.BannerSubText>
+                </S.BannerWhaleContainer>
+              </S.BannerTextGroup>
+              <S.BannerWhaleIcon src={whale} alt="whale" />
+            </S.Banner>
+          ) : (
             <S.Banner $gradient="yellow">
               <S.BannerCoinIcon src={bank} alt="bank-icon" />
               <S.BannerTextGroup>
@@ -109,20 +139,6 @@ const Home = () => {
                   ₩1,000,000 코인을 가지고 시작하게 돼요
                 </S.BannerText>
               </S.BannerTextGroup>
-            </S.Banner>
-          ) : (
-            <S.Banner $gradient="blue">
-              <S.BannerTextGroup>
-                <S.BannerWhaleContainer>
-                  <S.BannerTitle>한태영님, 환영합니다!</S.BannerTitle>
-                  <S.BannerDivider />
-                  <S.BannerSubText>
-                    현재 내 자산 : 100,000,000 코인
-                  </S.BannerSubText>
-                  <S.BannerSubText>현재 내 랭킹 : 1등</S.BannerSubText>
-                </S.BannerWhaleContainer>
-              </S.BannerTextGroup>
-              <S.BannerWhaleIcon src={whale} alt="whale" />
             </S.Banner>
           )}
 

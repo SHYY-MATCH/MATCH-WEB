@@ -30,8 +30,8 @@ export const MainContent = styled.div`
 export const BannerWrapper = styled.div`
   width: 100%;
   height: 270px;
-  border-radius: 20px;
-  background: linear-gradient(90deg, #3b82f6 0%, #06b6d4 100%);
+  border-radius: 16px;
+  background: linear-gradient(90deg, #4d4fe2 0%, #1a8fec 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -70,15 +70,20 @@ export const SportType = styled.div`
 `;
 
 export const Time = styled.div`
-  font-size: 24px;
-  font-style: italic;
+  font-size: 28px;
   color: white;
+  font-family: "Paperlogy-7Bold";
 `;
 
 export const Matchup = styled.div`
   color: white;
   font-size: 18px;
   font-family: "Paperlogy-4Regular";
+  font-feature-settings: "ss05" on;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+  letter-spacing: -0.15px;
 `;
 
 export const Team = styled.span<{ $isRight?: boolean }>`
@@ -86,10 +91,11 @@ export const Team = styled.span<{ $isRight?: boolean }>`
 `;
 
 export const WhaleImage = styled.img`
-  height: 300px;
-  top: -50px;
-  right: 0;
   position: absolute;
+  right: 55px;
+  bottom: 8px;
+  width: 309px;
+  height: 300px;
 `;
 export const Main = styled.div`
   width: 100%;
