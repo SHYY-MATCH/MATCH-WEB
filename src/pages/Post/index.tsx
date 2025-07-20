@@ -1,31 +1,35 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import * as S from "./style";
 import SideBar from "../../components/SideBar";
 import LeftArrow from "../../assets/Icons/LeftArrow";
-import AddFile from "../../assets/Icons/AddFile";
 import Button from "../../components/Button";
-import File from "../../assets/Icons/File";
 import { useNavigate } from "react-router-dom";
+import { useCreatePost } from "../../shared/hooks/useCreatePost";
 
 const Post = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [fileName, setFileName] = useState<string | null>(null);
-
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const isActive = title.trim() !== "" && content.trim() !== "";
 
-  const handleFileUploadClick = () => {
-    fileInputRef.current?.click();
-  };
+  const { mutate: createPost, isPending } = useCreatePost(); // ✅ 훅 사용
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFileName(file.name);
-    }
+  const handlePost = () => {
+    if (!isActive) return;
+
+    createPost(
+      { title, content },
+      {
+        onSuccess: () => {
+          alert("게시글이 등록되었습니다.");
+          navigate("/community");
+        },
+        onError: () => {
+          alert("게시글 등록에 실패했습니다.");
+        },
+      },
+    );
   };
 
   return (
@@ -44,16 +48,6 @@ const Post = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
-              <S.AddFileContainer onClick={handleFileUploadClick}>
-                <S.AddFileText>파일 첨부</S.AddFileText>
-                <AddFile />
-              </S.AddFileContainer>
-              <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-              />
             </S.WriteHeader>
             <S.Line />
             <S.MainWrite
@@ -62,15 +56,13 @@ const Post = () => {
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
-            {fileName && (
-              <S.FileContainer>
-                <span>{fileName}</span>
-                <File />
-              </S.FileContainer>
-            )}
           </S.WriteContainer>
           <S.PostBtn>
-            <Button text="게시하기" isActive={isActive} />
+            <Button
+              text={isPending ? "작성 중..." : "게시하기"}
+              isActive={isActive && !isPending}
+              onClick={handlePost}
+            />
           </S.PostBtn>
         </S.MainWriteContainer>
       </S.Main>
