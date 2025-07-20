@@ -102,12 +102,12 @@ export const BannerImg = styled.img`
     width: 309;
 `
 
-export const HotBets = styled.section`
-    width: 85%;
+export const Bets = styled.section`
+    width: 100%;
     display: flex;
     flex-direction: column;
     
-    gap: 12px;
+    gap: 8px;
 `
 
 export const BetsTitle = styled.span`
@@ -121,6 +121,7 @@ export const BetsTitle = styled.span`
 `
 
 export const BetList = styled.div`
+    margin-top: 4px;
     max-height: 400px;
     overflow-y: auto;
     display: flex;
@@ -138,9 +139,19 @@ export const Bet = styled.section`
     //background: aqua;
 `
 
-export const BetTitle = styled.section`
+export const BetLayer = styled.section`
+    width: 85%;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 60px;
 `
 
+export const ScrollHandlers = styled.section`
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0;
+`
+
+export const ScrollHandler = styled.section`
+    width: 24px;
+`

@@ -4,6 +4,8 @@ import BetRegular from "../../components/BetRegular";
 import { useState } from "react";
 import Whale from '../../assets/whale.png'
 import BetTitle from "../../components/BetTitle";
+import LeftArrow from "../../assets/Icons/LeftArrow.tsx";
+import RightArrow from "../../assets/Icons/RightArrow.tsx";
 
 type Banner = {
     title: string;
@@ -77,35 +79,77 @@ const BettingList = () => {
                         <_.BannerImg src={Whale} alt="whale" />
                     </_.Banner>
 
-                    <_.HotBets>
-                        <_.BetsTitle>현재 인기 베팅🔥</_.BetsTitle>
-                        <_.BetList>
-                            <_.Bet>
-                                <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
-                                <BetRegular left={bannerInfo.bet.left}
-                                            right={bannerInfo.bet.right}
-                                            teams={bannerInfo.bet.teams} />
-                            </_.Bet>
-                            <_.Bet>
-                                <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
-                                <BetRegular left={bannerInfo.bet.left}
-                                            right={bannerInfo.bet.right}
-                                            teams={bannerInfo.bet.teams} />
-                            </_.Bet>
-                            <_.Bet>
-                                <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
-                                <BetRegular left={bannerInfo.bet.left}
-                                            right={bannerInfo.bet.right}
-                                            teams={bannerInfo.bet.teams} />
-                            </_.Bet>
-                            <_.Bet>
-                                <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
-                                <BetRegular left={bannerInfo.bet.left}
-                                            right={bannerInfo.bet.right}
-                                            teams={bannerInfo.bet.teams} />
-                            </_.Bet>
-                        </_.BetList>
-                    </_.HotBets>
+                    <_.BetLayer>
+                        <_.Bets>
+                            <_.BetsTitle>현재 인기 베팅🔥</_.BetsTitle>
+                            <_.BetList>
+                                <_.Bet>
+                                    <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                    <BetRegular left={bannerInfo.bet.left}
+                                                right={bannerInfo.bet.right}
+                                                teams={bannerInfo.bet.teams} />
+                                </_.Bet>
+                                <_.Bet>
+                                    <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                    <BetRegular left={bannerInfo.bet.left}
+                                                right={bannerInfo.bet.right}
+                                                teams={bannerInfo.bet.teams} />
+                                </_.Bet>
+                                <_.Bet>
+                                    <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                    <BetRegular left={bannerInfo.bet.left}
+                                                right={bannerInfo.bet.right}
+                                                teams={bannerInfo.bet.teams} />
+                                </_.Bet>
+                                <_.Bet>
+                                    <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                    <BetRegular left={bannerInfo.bet.left}
+                                                right={bannerInfo.bet.right}
+                                                teams={bannerInfo.bet.teams} />
+                                </_.Bet>
+                            </_.BetList>
+                        </_.Bets>
+                        <_.Bets>
+                            <_.BetsTitle>꼬리잡기 & 농구</_.BetsTitle>
+                            <_.BetList>
+                                <_.Bet>
+                                    <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                    <BetRegular left={bannerInfo.bet.left}
+                                                right={bannerInfo.bet.right}
+                                                teams={bannerInfo.bet.teams} />
+                                </_.Bet>
+                                <_.Bet>
+                                    <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                    <BetRegular left={bannerInfo.bet.left}
+                                                right={bannerInfo.bet.right}
+                                                teams={bannerInfo.bet.teams} />
+                                </_.Bet>
+                                <_.Bet>
+                                    <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                    <BetRegular left={bannerInfo.bet.left}
+                                                right={bannerInfo.bet.right}
+                                                teams={bannerInfo.bet.teams} />
+                                </_.Bet>
+                                <_.Bet>
+                                    <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                    <BetRegular left={bannerInfo.bet.left}
+                                                right={bannerInfo.bet.right}
+                                                teams={bannerInfo.bet.teams} />
+                                </_.Bet>
+                                <_.Bet>
+                                    <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                    <BetRegular left={bannerInfo.bet.left}
+                                                right={bannerInfo.bet.right}
+                                                teams={bannerInfo.bet.teams} />
+                                </_.Bet>
+                            </_.BetList>
+                            <_.ScrollHandlers>
+                                <_.ScrollHandler><RightArrow isNext={true} /></_.ScrollHandler>
+                                <_.ScrollHandler><LeftArrow isNext={false} /></_.ScrollHandler>
+                            </_.ScrollHandlers>
+                        </_.Bets>
+                    </_.BetLayer>
+
                 </_.MainLayer>
             </_.Main>
         </_.Container>
