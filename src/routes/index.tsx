@@ -5,6 +5,8 @@ import Post from "../pages/Post";
 import PostDetail from "../pages/PostDetail";
 import KakaoRedirect from "../pages/KakaoRedirect";
 import Ranking from "../pages/Ranking";
+import BettingList from "../pages/BettingList";
+import BettingDetail from "../pages/BettingDetail";
 
 function Router() {
   return useRoutes([
@@ -28,12 +30,12 @@ function Router() {
     },
     //bet-list 탭
     {
-      path: "/bet-list",
-      // element: <BetList />,
+      path: "/betting-list",
+      element: <BettingList />,
     },
     {
       path: "/bet-detail",
-      // element: <BetList />,
+      element: <BettingDetail />,
     },
     {
       path: "/ranking",
