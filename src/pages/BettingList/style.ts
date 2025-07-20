@@ -102,3 +102,45 @@ export const BannerImg = styled.img`
     width: 309;
 `
 
+export const HotBets = styled.section`
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    
+    gap: 12px;
+`
+
+export const BetsTitle = styled.span`
+    color: #FFF;
+    font-feature-settings: 'ss05' on;
+    
+    font-family: "Paperlogy-6SemiBold";
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 140%; /* 33.6px */
+`
+
+export const BetList = styled.div`
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    gap: 16px;
+`;
+
+export const Bet = styled.section`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    
+    width: calc((50% - 8px) / 2);
+    height: fit-content;
+    
+    //background: aqua;
+`
+
+export const BetTitle = styled.section`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+`
+

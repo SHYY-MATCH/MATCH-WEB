@@ -3,6 +3,7 @@ import SideBar from "../../components/SideBar";
 import BetRegular from "../../components/BetRegular";
 import { useState } from "react";
 import Whale from '../../assets/whale.png'
+import BetTitle from "../../components/BetTitle";
 
 type Banner = {
     title: string;
@@ -75,6 +76,36 @@ const BettingList = () => {
                         </_.BannerLayer>
                         <_.BannerImg src={Whale} alt="whale" />
                     </_.Banner>
+
+                    <_.HotBets>
+                        <_.BetsTitle>현재 인기 베팅🔥</_.BetsTitle>
+                        <_.BetList>
+                            <_.Bet>
+                                <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                <BetRegular left={bannerInfo.bet.left}
+                                            right={bannerInfo.bet.right}
+                                            teams={bannerInfo.bet.teams} />
+                            </_.Bet>
+                            <_.Bet>
+                                <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                <BetRegular left={bannerInfo.bet.left}
+                                            right={bannerInfo.bet.right}
+                                            teams={bannerInfo.bet.teams} />
+                            </_.Bet>
+                            <_.Bet>
+                                <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                <BetRegular left={bannerInfo.bet.left}
+                                            right={bannerInfo.bet.right}
+                                            teams={bannerInfo.bet.teams} />
+                            </_.Bet>
+                            <_.Bet>
+                                <BetTitle title={"타이틀"} subTitle={"서브타이틀"}/>
+                                <BetRegular left={bannerInfo.bet.left}
+                                            right={bannerInfo.bet.right}
+                                            teams={bannerInfo.bet.teams} />
+                            </_.Bet>
+                        </_.BetList>
+                    </_.HotBets>
                 </_.MainLayer>
             </_.Main>
         </_.Container>
