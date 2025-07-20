@@ -24,7 +24,7 @@ const Community = () => {
   const gameInfo = {
     title: "농구",
     time: "오전 09:40",
-    teams: ["소프트웨어개발과", "임베디드소프트웨어과"] as [string, string],
+    teams: ["소프트웨어개발과", "임베디드개발과"] as [string, string],
     left: {
       text1: "382.7만",
       text2: "1:1.2",

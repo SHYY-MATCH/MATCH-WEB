@@ -23,8 +23,8 @@ export const useCreatePost = () => {
   return useMutation<CreatePostResponse, Error, CreatePostRequest>({
     mutationFn: async (payload) => {
       console.log("보내는 payload", payload);
-      return await api.post("/posts", payload, {
-        headers: { "Content-Type": "application/json" },
+      return await api.post("/posts", null, {
+        params: payload,
       });
     },
   });
