@@ -1,6 +1,7 @@
 import * as S from "./style";
 import Show from "../../assets/Icons/Show";
 import Heart from "../../assets/Icons/Heart";
+import { useNavigate } from "react-router-dom";
 
 interface Post {
   id: number;
@@ -17,9 +18,14 @@ interface PostListProps {
 
 const PostList = ({ post }: PostListProps) => {
   const formattedDate = new Date(post.createdAt).toLocaleDateString("ko-KR");
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/post-detail/${post.id}`);
+  };
 
   return (
-    <S.Container>
+    <S.Container onClick={handleClick} style={{ cursor: "pointer" }}>
       <S.Title>{post.title}</S.Title>
 
       <S.AuthorContainer>

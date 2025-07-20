@@ -1,22 +1,72 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as S from "./style";
 import SideBar from "../../components/SideBar";
 import LeftArrow from "../../assets/Icons/LeftArrow";
 import Show from "../../assets/Icons/Show";
 import Heart from "../../assets/Icons/Heart";
 import PostComment from "../../components/PostComment";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useGetPost,
+  useLikePost,
+  useUnlikePost,
+  useIncreaseViewPost,
+} from "../../shared/hooks/useGetPost";
 
 const PostDetail = () => {
   const navigate = useNavigate();
+  const { postId } = useParams<{ postId: string }>();
   const [comment, setComment] = useState("");
   const isActive = comment.trim() !== "";
 
-  const title = "React에서 게시글 상세 페이지 만들기";
-  const postName = "홍길동";
-  const date = "2025년 7월 17일";
-  const views = "1.2k";
-  const likes = "98";
+  const { data: post, isLoading, isError } = useGetPost(Number(postId));
+  const likeMutation = useLikePost(Number(postId));
+  const unlikeMutation = useUnlikePost(Number(postId));
+  const increaseViewMutation = useIncreaseViewPost(Number(postId));
+  const hasIncreasedView = useRef(false);
+
+  // 좋아요 상태/수 optimistic update
+  const [optimisticLikes, setOptimisticLikes] = useState<number | null>(null);
+  const [optimisticIsLiked, setOptimisticIsLiked] = useState<boolean | null>(
+    null
+  );
+
+  // 최초 마운트 시에만 조회수 증가 (한 번만)
+  useEffect(() => {
+    if (postId && !hasIncreasedView.current) {
+      hasIncreasedView.current = true;
+      increaseViewMutation.mutate();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postId]);
+
+  // post 데이터가 바뀌면 optimistic state 초기화
+  useEffect(() => {
+    setOptimisticLikes(null);
+    setOptimisticIsLiked(null);
+  }, [post?.likes, post?.isLiked]);
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError || !post) return <div>게시글을 불러오지 못했습니다.</div>;
+
+  const formattedDate = new Date(post.createdAt).toLocaleDateString("ko-KR");
+
+  const isLiked =
+    optimisticIsLiked !== null ? optimisticIsLiked : post.isLiked ?? false;
+  const likes = optimisticLikes !== null ? optimisticLikes : post.likes;
+
+  const handleLike = () => {
+    if (isLiked) {
+      setOptimisticLikes(likes - 1);
+      setOptimisticIsLiked(false);
+      unlikeMutation.mutate();
+    } else {
+      setOptimisticLikes(likes + 1);
+      setOptimisticIsLiked(true);
+      likeMutation.mutate();
+    }
+  };
+
   return (
     <S.Container>
       <SideBar />
@@ -28,25 +78,41 @@ const PostDetail = () => {
         <S.MainWriteContainer>
           <S.WriteContainer>
             <S.WriteHeader>
-              <S.TitleInput>{title}</S.TitleInput>
+              <S.TitleInput>{post.title}</S.TitleInput>
               <S.PostDetailContainer>
-                <S.Name>{postName}</S.Name>
-                <S.Date>작성일 {date}</S.Date>
+                <S.Name>{post.writer.username}</S.Name>
+                <S.Date>작성일 {formattedDate}</S.Date>
               </S.PostDetailContainer>
             </S.WriteHeader>
             <S.Line />
-            <S.MainWrite>
-              as;dlkfja;welnf;akwdjfoaiewnvonaongepwiojfa[oiwejfo;an;gkladng;alsjf;jaweoignapow;lnmfd;lkms;alknf;awoeifoajwefoijaodsifjsad;ljfksakdjf;lkasjdf;lkjsadl;kfj;alskdjf]
-            </S.MainWrite>
+            <S.MainWrite>{post.content}</S.MainWrite>
           </S.WriteContainer>
           <S.PostBtn>
             <S.IconGroup>
-              <Heart />
+              <button
+                onClick={handleLike}
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                aria-label={isLiked ? "좋아요 취소" : "좋아요"}
+              >
+                <Heart
+                  style={{
+                    fill: isLiked ? "#FF8491" : "none",
+                    stroke: isLiked ? "#FF8491" : undefined,
+                  }}
+                />
+              </button>
               <S.Text>{likes}</S.Text>
             </S.IconGroup>
             <S.IconGroup>
               <Show />
-              <S.Text>{views}</S.Text>
+              <S.Text>{post.views}</S.Text>
             </S.IconGroup>
           </S.PostBtn>
         </S.MainWriteContainer>
@@ -66,12 +132,9 @@ const PostDetail = () => {
         <S.AllComentContainer>
           <S.WriteComentTitle>전체 댓글</S.WriteComentTitle>
           <S.Coments>
-            <PostComment />
-            <PostComment />
-            <PostComment />
-            <PostComment />
-            <PostComment />
-            <PostComment />
+            {post.comments.map((c) => (
+              <PostComment key={c.id} comment={c} />
+            ))}
           </S.Coments>
         </S.AllComentContainer>
       </S.Main>

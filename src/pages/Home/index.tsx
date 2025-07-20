@@ -28,7 +28,7 @@ const Home = () => {
         text3: 31,
         percent: 33,
       },
-      teams: ["소프트웨어개발과", "임베디드개발과"] as [string, string],
+      teams: ["SW 개발과", "임베디드개발과"] as [string, string],
     },
     {
       id: 2,
@@ -46,7 +46,7 @@ const Home = () => {
         text3: 31,
         percent: 33,
       },
-      teams: ["소프트웨어개발과", "임베디드개발과"] as [string, string],
+      teams: ["SW 개발과", "임베디드개발과"] as [string, string],
     },
     {
       id: 3,
@@ -64,7 +64,7 @@ const Home = () => {
         text3: 31,
         percent: 33,
       },
-      teams: ["소프트웨어개발과", "임베디드개발과"] as [string, string],
+      teams: ["SW 개발과", "임베디드개발과"] as [string, string],
     },
     {
       id: 4,
@@ -82,7 +82,7 @@ const Home = () => {
         text3: 31,
         percent: 33,
       },
-      teams: ["소프트웨어개발과", "임베디드개발과"] as [string, string],
+      teams: ["SW 개발과", "임베디드개발과"] as [string, string],
     },
   ];
   const [bannerIndex, setBannerIndex] = useState(0); // 0: 첫 배너, 1: 두 번째 배너

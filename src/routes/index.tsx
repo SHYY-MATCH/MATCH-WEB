@@ -23,7 +23,7 @@ function Router() {
       element: <Post />,
     },
     {
-      path: "/post-detail",
+      path: "/post-detail/:postId",
       element: <PostDetail />,
     },
     //bet-list 탭

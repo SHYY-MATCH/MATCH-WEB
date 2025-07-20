@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.main`
-  width: 100vw;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
   display: flex;
-  min-height: 100vh;
   background-color: #1f2329;
+  overflow-x: hidden;
 `;
 export const Main = styled.div`
   width: 100%;

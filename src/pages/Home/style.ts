@@ -2,9 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.main`
   display: flex;
-  min-width: 100vw;
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
   background-color: #1f2329;
+  overflow-x: hidden;
 `;
 export const Main = styled.div`
   display: flex;
@@ -127,7 +130,7 @@ export const Menu1TextGroup = styled.div`
 
 export const Menu1Title = styled.div`
   color: white;
-  font-size: 30px;
+  font-size: 25px;
   font-family: "WAGURI";
 `;
 
