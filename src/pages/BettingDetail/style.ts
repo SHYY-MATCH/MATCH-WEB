@@ -26,12 +26,26 @@ export const MainLayer = styled.div`
   min-height: 130vh;
 `;
 
-export const BackButton = styled.section`
+export const BackButton = styled.button`
   position: absolute;
   left: -28px;
-
   display: flex;
   gap: 4px;
+  align-items: center;
+  background: none;
+  border: none;
+  color: #70747a;
+  font-family: "Paperlogy-4Regular";
+  font-size: 18px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: #23262b;
+    color: #5c5ef5;
+  }
 `;
 
 export const BackButtonIcon = styled.section`
@@ -143,6 +157,35 @@ export const EnterAmount = styled.input`
   outline: none;
 
   color: #e8e9ea;
+`;
+
+export const BettingButton = styled.button`
+  margin-top: 16px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #5c5ef5 0%, #4f46e5 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: "Paperlogy-6SemiBold";
+  font-size: 18px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(92, 94, 245, 0.3);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(92, 94, 245, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
 `;
 
 export const Status = styled.section`

@@ -110,6 +110,12 @@ const BettingDetail = () => {
   const team2Percent =
     totalAmount > 0 ? Math.round((team2.totalAmount / totalAmount) * 100) : 50;
 
+  // 동적 배당률 계산
+  const team1Odds =
+    team1.totalAmount === 0 ? 1 : totalAmount / team1.totalAmount;
+  const team2Odds =
+    team2.totalAmount === 0 ? 1 : totalAmount / team2.totalAmount;
+
   return (
     <_.Container>
       <SideBar />
@@ -152,23 +158,12 @@ const BettingDetail = () => {
                   value={betAmount}
                   onChange={handleBetAmountChange}
                 />
-                <button
+                <_.BettingButton
                   onClick={handleBetting}
                   disabled={participateBetting.isPending}
-                  style={{
-                    marginTop: "10px",
-                    padding: "10px 20px",
-                    backgroundColor: "#007bff",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: participateBetting.isPending
-                      ? "not-allowed"
-                      : "pointer",
-                  }}
                 >
                   {participateBetting.isPending ? "배팅 중..." : "배팅하기"}
-                </button>
+                </_.BettingButton>
               </_.SetAmount>
             </_.BetSettings>
             <_.Status>
@@ -200,7 +195,7 @@ const BettingDetail = () => {
                         style={{ width: "28px" }}
                       />
                       <_.BlueStatusSymbolText>
-                        1:{team1.odds.toFixed(1)}
+                        1:{team1Odds.toFixed(1)}
                       </_.BlueStatusSymbolText>
                     </_.BlueStatusSymbol>
                     <_.BlueStatusSymbol>
@@ -226,7 +221,7 @@ const BettingDetail = () => {
                       <_.BlueBetInfoCat>배팅 성공 시 환급량</_.BlueBetInfoCat>
                       <_.BlueBetInfoTex>
                         {selectedTeamId === team1.teamId && betAmount
-                          ? (parseInt(betAmount) * team1.odds).toLocaleString()
+                          ? (parseInt(betAmount) * team1Odds).toLocaleString()
                           : "0"}
                       </_.BlueBetInfoTex>
                     </_.BlueBetInfo>
@@ -259,7 +254,7 @@ const BettingDetail = () => {
                         style={{ width: "28px" }}
                       />
                       <_.RedStatusSymbolText>
-                        1:{team2.odds.toFixed(1)}
+                        1:{team2Odds.toFixed(1)}
                       </_.RedStatusSymbolText>
                     </_.RedStatusSymbol>
                     <_.RedStatusSymbol>
@@ -285,7 +280,7 @@ const BettingDetail = () => {
                       <_.RedBetInfoCat>배팅 성공 시 환급량</_.RedBetInfoCat>
                       <_.RedBetInfoTex>
                         {selectedTeamId === team2.teamId && betAmount
-                          ? (parseInt(betAmount) * team2.odds).toLocaleString()
+                          ? (parseInt(betAmount) * team2Odds).toLocaleString()
                           : "0"}
                       </_.RedBetInfoTex>
                     </_.RedBetInfo>

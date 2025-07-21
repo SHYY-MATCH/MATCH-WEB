@@ -63,7 +63,7 @@ const CreateBetting = () => {
       };
 
       const response = await createBetting(request);
-      alert(`배팅이 성공적으로 생성되었습니다! (ID: ${response.bettingId})`);
+      alert("배팅이 성공적으로 생성되었습니다! 🎉");
       navigate("/betting-list");
     } catch (error) {
       console.error("배팅 생성 실패:", error);

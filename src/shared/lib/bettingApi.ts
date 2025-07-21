@@ -22,9 +22,8 @@ export const participateBetting = async (
   amount: number
 ): Promise<BettingResponse> => {
   const response = await api.post<BettingResponse>(
-    `/bettings/${bettingId}/participate`,
+    `/bettings/${bettingId}/teams/${teamId}/bet`,
     {
-      teamId,
       amount,
     }
   );

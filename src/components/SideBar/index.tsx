@@ -8,16 +8,17 @@ import Rank from "../../assets/sidebar/Rank";
 import { useLogout } from "../../shared/hooks/useLogout";
 import * as S from "./style";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SideBar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const KAKAO_AUTH_URL = import.meta.env.VITE_KAKAO_AUTH_URL;
   const userName = localStorage.getItem("userName");
   const logoutMutation = useLogout();
 
   const handleLogoClick = () => {
-    window.location.reload();
+    navigate("/");
   };
 
   const handleLogoutClick = () => {
