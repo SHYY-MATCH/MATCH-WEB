@@ -58,21 +58,45 @@ const Ranking = () => {
   }));
 
   // 4위 이하 추출
-  const others = rankingUsers.slice(3).map((user, index) => ({
-    rank: index + 4,
-    name: user.nickname,
-    money: user.money,
-    successBet: user.winCount,
-    failBet: user.loseCount,
-    maxBet: `${user.maxProfitRate.toFixed(1)}x`,
-    currentBets: [
-      { type: "success" as const },
-      { type: "draw" as const },
-      { type: "fail" as const },
-      { type: "fail" as const },
-      { type: "success" as const },
-    ], // 기본값으로 설정, 실제로는 API에서 받아와야 함
-  }));
+  const others = rankingUsers.slice(3).map((user, index) => {
+    // recentResults 파싱하여 최근 다섯 경기 결과 생성
+    const parseRecentResults = (results: string | undefined) => {
+      const defaultResults = [
+        { type: "draw" as const },
+        { type: "draw" as const },
+        { type: "draw" as const },
+        { type: "draw" as const },
+        { type: "draw" as const },
+      ];
+
+      if (!results) return defaultResults;
+
+      const resultArray = results.split(",").map((result) => result.trim());
+      const parsedResults = resultArray.map((result) => {
+        if (result === "승") return { type: "success" as const };
+        if (result === "패") return { type: "fail" as const };
+        return { type: "draw" as const }; // 무승부 또는 알 수 없는 값
+      });
+
+      // 5개가 되도록 무승부로 채움
+      while (parsedResults.length < 5) {
+        parsedResults.push({ type: "draw" as const });
+      }
+
+      // 5개만 반환
+      return parsedResults.slice(0, 5);
+    };
+
+    return {
+      rank: index + 4,
+      name: user.nickname,
+      money: user.money,
+      successBet: user.winCount,
+      failBet: user.loseCount,
+      maxBet: `${user.maxProfitRate.toFixed(1)}x`,
+      currentBets: parseRecentResults(user.recentResults),
+    };
+  });
 
   return (
     <S.PageWrapper>

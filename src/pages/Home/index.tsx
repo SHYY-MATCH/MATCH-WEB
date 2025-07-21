@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as S from "./style";
 import SideBar from "../../components/SideBar";
 import BetRegular from "../../components/BetRegular";
@@ -10,84 +11,13 @@ import RightArrow from "../../assets/Icons/RightArrow";
 import LeftArrow from "../../assets/Icons/LeftArrow";
 import whale from "../../assets/whale.png";
 import { useUserStatus } from "../../shared/hooks/useUserStatus";
+import { useBettingList } from "../../shared/hooks/useBettingList";
 
 const Home = () => {
+  const navigate = useNavigate();
   const { data: userStatus, isLoading: userStatusLoading } = useUserStatus();
+  const { data: bettingList, isLoading: bettingListLoading } = useBettingList();
 
-  const hotBetList = [
-    {
-      id: 1,
-      title: "큰 공 배구 왕중왕전",
-      subTitle: "38분 후에 제출이 마감됩니다.",
-      left: {
-        text1: "382.7만",
-        text2: "1:1.2",
-        text3: 62,
-        percent: 67,
-      },
-      right: {
-        text1: "382.7만",
-        text2: "1:1.6",
-        text3: 31,
-        percent: 33,
-      },
-      teams: ["SW 개발과", "임베디드개발과"] as [string, string],
-    },
-    {
-      id: 2,
-      title: "큰 공 배구 왕중왕전",
-      subTitle: "38분 후에 제출이 마감됩니다.",
-      left: {
-        text1: "382.7만",
-        text2: "1:1.2",
-        text3: 62,
-        percent: 67,
-      },
-      right: {
-        text1: "382.7만",
-        text2: "1:1.6",
-        text3: 31,
-        percent: 33,
-      },
-      teams: ["SW 개발과", "임베디드개발과"] as [string, string],
-    },
-    {
-      id: 3,
-      title: "큰 공 배구 왕중왕전",
-      subTitle: "38분 후에 제출이 마감됩니다.",
-      left: {
-        text1: "382.7만",
-        text2: "1:1.2",
-        text3: 62,
-        percent: 67,
-      },
-      right: {
-        text1: "382.7만",
-        text2: "1:1.6",
-        text3: 31,
-        percent: 33,
-      },
-      teams: ["SW 개발과", "임베디드개발과"] as [string, string],
-    },
-    {
-      id: 4,
-      title: "큰 공 배구 왕중왕전",
-      subTitle: "38분 후에 제출이 마감됩니다.",
-      left: {
-        text1: "382.7만",
-        text2: "1:1.2",
-        text3: 62,
-        percent: 67,
-      },
-      right: {
-        text1: "382.7만",
-        text2: "1:1.6",
-        text3: 31,
-        percent: 33,
-      },
-      teams: ["SW 개발과", "임베디드개발과"] as [string, string],
-    },
-  ];
   const [bannerIndex, setBannerIndex] = useState(0); // 0: 첫 배너, 1: 두 번째 배너
 
   const handlePrev = () => {
@@ -97,6 +27,67 @@ const Home = () => {
   const handleNext = () => {
     if (bannerIndex < 1) setBannerIndex(bannerIndex + 1);
   };
+
+  const handleBettingListClick = () => {
+    navigate("/betting-list");
+  };
+
+  const handleRankingClick = () => {
+    navigate("/ranking");
+  };
+
+  // 배팅 데이터를 BetRegular 컴포넌트 형식으로 변환
+  const formatBettingData = (betting: any) => {
+    if (!betting.teams || betting.teams.length < 2) return null;
+
+    const team1 = betting.teams[0];
+    const team2 = betting.teams[1];
+
+    // 발행시간을 YYYY-MM-DD 형식으로 변환
+    const date = new Date(betting.openedAt);
+    const formattedDate = date.toISOString().split("T")[0]; // YYYY-MM-DD 형식
+
+    return {
+      id: betting.bettingId,
+      title: betting.sportName,
+      subTitle: formattedDate,
+      left: {
+        text1: `${(team1.totalAmount / 10000).toFixed(1)}만`,
+        text2: `1:${team1.odds.toFixed(1)}`,
+        text3: team1.participantCount,
+        percent: isNaN(
+          Math.round(
+            (team1.totalAmount / (team1.totalAmount + team2.totalAmount)) * 100
+          )
+        )
+          ? 50
+          : Math.round(
+              (team1.totalAmount / (team1.totalAmount + team2.totalAmount)) *
+                100
+            ),
+      },
+      right: {
+        text1: `${(team2.totalAmount / 10000).toFixed(1)}만`,
+        text2: `1:${team2.odds.toFixed(1)}`,
+        text3: team2.participantCount,
+        percent: isNaN(
+          Math.round(
+            (team2.totalAmount / (team1.totalAmount + team2.totalAmount)) * 100
+          )
+        )
+          ? 50
+          : Math.round(
+              (team2.totalAmount / (team1.totalAmount + team2.totalAmount)) *
+                100
+            ),
+      },
+      teams: [team1.teamName, team2.teamName] as [string, string],
+    };
+  };
+
+  // 상위 4개 배팅만 필터링
+  const top4Betting =
+    bettingList?.slice(0, 4).map(formatBettingData).filter(Boolean) || [];
 
   return (
     <S.Container>
@@ -155,32 +146,38 @@ const Home = () => {
         <S.MenuContainer>
           <S.MenuText>메뉴</S.MenuText>
           <S.MenuList>
-            <S.Menu>
+            <S.MenuButton onClick={handleBettingListClick}>
               <S.Menu1TextGroup>
                 <S.Menu1Title>함께 배팅 목록들을 확인해볼까요?</S.Menu1Title>
                 <S.Menu1SubText>배팅목록으로 바로가기 &gt;</S.Menu1SubText>
               </S.Menu1TextGroup>
               <S.Menu1Image src={star} alt="sparkle" />
-            </S.Menu>
-            <S.Menu>
+            </S.MenuButton>
+            <S.MenuButton onClick={handleRankingClick}>
               <S.Menu1TextGroup>
                 <S.Menu1Title>다른 사람들의 랭킹도 확인해볼까요?</S.Menu1Title>
                 <S.Menu1SubText>랭킹으로 바로가기 &gt;</S.Menu1SubText>
               </S.Menu1TextGroup>
               <S.Menu1Image src={prize} alt="sparkle" />
-            </S.Menu>
+            </S.MenuButton>
           </S.MenuList>
         </S.MenuContainer>
 
         <S.NowHotBetContainer>
           <S.NowHotBetText>현재 인기 배팅 🔥</S.NowHotBetText>
           <S.NowHotBetList>
-            {hotBetList.map(({ id, title, subTitle, left, right, teams }) => (
-              <S.HotBet key={id}>
-                <BetTitle title={title} subTitle={subTitle} />
-                <BetRegular left={left} right={right} teams={teams} />
-              </S.HotBet>
-            ))}
+            {bettingListLoading ? (
+              <div>로딩 중...</div>
+            ) : top4Betting.length > 0 ? (
+              top4Betting.map(({ id, title, subTitle, left, right, teams }) => (
+                <S.HotBet key={id}>
+                  <BetTitle title={title} subTitle={subTitle} />
+                  <BetRegular left={left} right={right} teams={teams} />
+                </S.HotBet>
+              ))
+            ) : (
+              <div>배팅 목록이 없습니다.</div>
+            )}
           </S.NowHotBetList>
         </S.NowHotBetContainer>
       </S.Main>

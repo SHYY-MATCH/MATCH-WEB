@@ -9,6 +9,7 @@ export const Container = styled.main`
   background-color: #1f2329;
   overflow-x: hidden;
 `;
+
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,6 +18,7 @@ export const Main = styled.div`
   gap: 60px;
   width: 100%;
 `;
+
 export const BannerContainer = styled.div`
   width: 85%;
   display: flex;
@@ -41,6 +43,7 @@ export const BannerCoinIcon = styled.img`
   height: 142px;
   margin-left: 92px;
 `;
+
 export const BannerWhaleIcon = styled.img`
   height: 300px;
   top: -50px;
@@ -90,27 +93,32 @@ export const ArrowButton = styled.button<{ $active: boolean }>`
     stroke: ${({ $active }) => ($active ? "#5C5EF5" : "#aaa")};
   }
 `;
+
 export const BannerText = styled.div`
   font-size: 40px;
   color: black;
   font-family: "WAGURI";
   padding-left: 80px;
 `;
+
 export const MenuContainer = styled.div`
   width: 85%;
   display: flex;
   flex-direction: column;
   gap: 12px;
 `;
+
 export const MenuText = styled.div`
   font-size: 24px;
   font-family: "Paperlogy-6SemiBold";
   color: white;
 `;
+
 export const MenuList = styled.div`
   display: flex;
   gap: 35px;
 `;
+
 export const Menu = styled.div`
   width: 50%;
   height: 132px;
@@ -120,6 +128,30 @@ export const Menu = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 32px;
+`;
+
+export const MenuButton = styled.button`
+  width: 50%;
+  height: 132px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #8d94a7 0%, #555961 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(90deg, #9da4b7 0%, #656971 100%);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 `;
 
 export const Menu1TextGroup = styled.div`
@@ -145,23 +177,27 @@ export const Menu1Image = styled.img`
   width: 90px;
   height: 90px;
 `;
+
 export const NowHotBetContainer = styled.div`
   width: 85%;
   display: flex;
   flex-direction: column;
   gap: 9px;
 `;
+
 export const NowHotBetText = styled.div`
   font-size: 24px;
   font-family: "Paperlogy-6SemiBold";
   color: white;
 `;
+
 export const NowHotBetList = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   justify-content: space-between;
 `;
+
 export const HotBet = styled.div`
   flex: 1 1 calc(25% - 12px);
   max-width: calc(25% - 12px);

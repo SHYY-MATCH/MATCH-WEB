@@ -76,12 +76,21 @@ const BettingList = () => {
             )}만`,
             text2: `1:${firstBetting.teams[0].odds.toFixed(1)}`,
             text3: firstBetting.teams[0].participantCount,
-            percent: Math.round(
-              (firstBetting.teams[0].totalAmount /
-                (firstBetting.teams[0].totalAmount +
-                  firstBetting.teams[1].totalAmount)) *
-                100
-            ),
+            percent: isNaN(
+              Math.round(
+                (firstBetting.teams[0].totalAmount /
+                  (firstBetting.teams[0].totalAmount +
+                    firstBetting.teams[1].totalAmount)) *
+                  100
+              )
+            )
+              ? 50
+              : Math.round(
+                  (firstBetting.teams[0].totalAmount /
+                    (firstBetting.teams[0].totalAmount +
+                      firstBetting.teams[1].totalAmount)) *
+                    100
+                ),
           },
           right: {
             text1: `${(firstBetting.teams[1].totalAmount / 10000).toFixed(
@@ -89,12 +98,21 @@ const BettingList = () => {
             )}만`,
             text2: `1:${firstBetting.teams[1].odds.toFixed(1)}`,
             text3: firstBetting.teams[1].participantCount,
-            percent: Math.round(
-              (firstBetting.teams[1].totalAmount /
-                (firstBetting.teams[0].totalAmount +
-                  firstBetting.teams[1].totalAmount)) *
-                100
-            ),
+            percent: isNaN(
+              Math.round(
+                (firstBetting.teams[1].totalAmount /
+                  (firstBetting.teams[0].totalAmount +
+                    firstBetting.teams[1].totalAmount)) *
+                  100
+              )
+            )
+              ? 50
+              : Math.round(
+                  (firstBetting.teams[1].totalAmount /
+                    (firstBetting.teams[0].totalAmount +
+                      firstBetting.teams[1].totalAmount)) *
+                    100
+                ),
           },
           teams: [
             firstBetting.teams[0].teamName,
@@ -245,12 +263,21 @@ const BettingList = () => {
                         ).toFixed(1)}만`,
                         text2: `1:${betting.teams[0].odds.toFixed(1)}`,
                         text3: betting.teams[0].participantCount,
-                        percent: Math.round(
-                          (betting.teams[0].totalAmount /
-                            (betting.teams[0].totalAmount +
-                              betting.teams[1].totalAmount)) *
-                            100
-                        ),
+                        percent: isNaN(
+                          Math.round(
+                            (betting.teams[0].totalAmount /
+                              (betting.teams[0].totalAmount +
+                                betting.teams[1].totalAmount)) *
+                              100
+                          )
+                        )
+                          ? 50
+                          : Math.round(
+                              (betting.teams[0].totalAmount /
+                                (betting.teams[0].totalAmount +
+                                  betting.teams[1].totalAmount)) *
+                                100
+                            ),
                       }}
                       right={{
                         text1: `${(
@@ -258,12 +285,21 @@ const BettingList = () => {
                         ).toFixed(1)}만`,
                         text2: `1:${betting.teams[1].odds.toFixed(1)}`,
                         text3: betting.teams[1].participantCount,
-                        percent: Math.round(
-                          (betting.teams[1].totalAmount /
-                            (betting.teams[0].totalAmount +
-                              betting.teams[1].totalAmount)) *
-                            100
-                        ),
+                        percent: isNaN(
+                          Math.round(
+                            (betting.teams[1].totalAmount /
+                              (betting.teams[0].totalAmount +
+                                betting.teams[1].totalAmount)) *
+                              100
+                          )
+                        )
+                          ? 50
+                          : Math.round(
+                              (betting.teams[1].totalAmount /
+                                (betting.teams[0].totalAmount +
+                                  betting.teams[1].totalAmount)) *
+                                100
+                            ),
                       }}
                       teams={[
                         betting.teams[0].teamName,
