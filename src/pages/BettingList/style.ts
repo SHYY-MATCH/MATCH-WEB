@@ -128,9 +128,10 @@ export const BetsTitle = styled.span`
 
 export const BetList = styled.div`
   margin-top: 4px;
-  max-height: 400px;
+  max-height: 600px;
   overflow-y: auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 
   -ms-overflow-style: none;
@@ -145,13 +146,20 @@ export const Bet = styled.section`
   display: flex;
   flex-direction: column;
   gap: 8px;
-
-  //width: calc((50% - 8px) / 2);
-  width: calc((25% - 4px) - 8px);
+  width: 100%;
   height: fit-content;
   flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 
-  //background: aqua;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 `;
 
 export const BetLayer = styled.section`
@@ -159,30 +167,4 @@ export const BetLayer = styled.section`
   display: flex;
   flex-direction: column;
   gap: 60px;
-`;
-
-export const ScrollHandlers = styled.section`
-  display: flex;
-  flex-direction: row-reverse;
-  gap: 0;
-`;
-
-export const ScrollHandler = styled.section`
-  width: 24px;
-`;
-
-export const BetListScrollable = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  overflow-x: auto;
-  padding-bottom: 10px; // 스크롤바 공간 확보
-  scrollbar-width: thin; // Firefox
-  &::-webkit-scrollbar {
-    height: 8px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #c0c0c0;
-    border-radius: 4px;
-  }
 `;

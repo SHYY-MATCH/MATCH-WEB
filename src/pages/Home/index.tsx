@@ -108,8 +108,9 @@ const Home = () => {
                     현재 내 자산 :{" "}
                     {userStatusLoading
                       ? "로딩 중..."
-                      : userStatus?.currentAsset?.toLocaleString() || "0"}{" "}
-                    코인
+                      : `${
+                          userStatus?.currentAsset?.toLocaleString() || "0"
+                        }원`}
                   </S.BannerSubText>
                   <S.BannerSubText>
                     현재 내 랭킹 :{" "}
