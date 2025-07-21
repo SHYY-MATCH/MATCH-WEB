@@ -11,6 +11,8 @@ import RedPeople from "../../assets/betting/component/img/red_people.svg";
 import { useParams, useNavigate } from "react-router-dom";
 import { useBettingDetail } from "../../shared/hooks/useBettingDetail";
 import { useParticipateBetting } from "../../shared/hooks/useParticipateBetting";
+import { useUserStatus } from "../../shared/hooks/useUserStatus";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 const BettingDetail = () => {
@@ -18,7 +20,8 @@ const BettingDetail = () => {
   const navigate = useNavigate();
   const [selectedTeamId, setSelectedTeamId] = useState<number | null>(null);
   const [betAmount, setBetAmount] = useState<string>("");
-  const [userAsset] = useState(100000000); // 임시 자산 (실제로는 API에서 가져와야 함)
+  const { data: userStatus, isLoading: userStatusLoading } = useUserStatus();
+  const queryClient = useQueryClient();
 
   const {
     data: bettingDetail,
@@ -52,7 +55,8 @@ const BettingDetail = () => {
       return;
     }
 
-    if (amount > userAsset) {
+    // 자산 체크 시 동적 값 사용
+    if (amount > (userStatus?.currentAsset ?? 0)) {
       alert("보유 자산보다 많은 금액을 배팅할 수 없습니다.");
       return;
     }
@@ -68,6 +72,7 @@ const BettingDetail = () => {
           alert("배팅이 완료되었습니다!");
           setBetAmount("");
           setSelectedTeamId(null);
+          queryClient.invalidateQueries({ queryKey: ["userStatus"] });
         },
         onError: (error) => {
           alert("배팅 중 오류가 발생했습니다: " + error.message);
@@ -131,7 +136,11 @@ const BettingDetail = () => {
             <_.Title>{bettingDetail.sportName}</_.Title>
             <_.AssetLayer>
               <_.Asset>현재 내 자산</_.Asset>
-              <_.Asset>{userAsset.toLocaleString()}</_.Asset>
+              <_.Asset>
+                {userStatusLoading
+                  ? "로딩 중..."
+                  : userStatus?.currentAsset?.toLocaleString() ?? "0"}
+              </_.Asset>
             </_.AssetLayer>
             <_.BetSettings>
               <_.ChoiceTeam>
@@ -221,7 +230,9 @@ const BettingDetail = () => {
                       <_.BlueBetInfoCat>배팅 성공 시 환급량</_.BlueBetInfoCat>
                       <_.BlueBetInfoTex>
                         {selectedTeamId === team1.teamId && betAmount
-                          ? (parseInt(betAmount) * team1Odds).toLocaleString()
+                          ? Math.floor(
+                              parseInt(betAmount) * team1Odds
+                            ).toLocaleString()
                           : "0"}
                       </_.BlueBetInfoTex>
                     </_.BlueBetInfo>
@@ -280,7 +291,9 @@ const BettingDetail = () => {
                       <_.RedBetInfoCat>배팅 성공 시 환급량</_.RedBetInfoCat>
                       <_.RedBetInfoTex>
                         {selectedTeamId === team2.teamId && betAmount
-                          ? (parseInt(betAmount) * team2Odds).toLocaleString()
+                          ? Math.floor(
+                              parseInt(betAmount) * team2Odds
+                            ).toLocaleString()
                           : "0"}
                       </_.RedBetInfoTex>
                     </_.RedBetInfo>
